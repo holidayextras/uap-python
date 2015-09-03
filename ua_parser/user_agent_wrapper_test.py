@@ -65,8 +65,7 @@ class ParseStringWithGivenDelimiter(unittest.TestCase):
     def runParseUserAgentStringsFromFile(self, inFilePath, outFilePath):
         delimiter = ","
 
-        result = user_agent_wrapper.parseFromFile(inFilePath, outFilePath, delimiter)
-        print result
+        user_agent_wrapper.parseFromFile(inFilePath, outFilePath, delimiter)
 
 if __name__ == '__main__':
     unittest.main()
