@@ -4,7 +4,7 @@ all: prep test
 
 prep:
 	#git submodule update --init
-	#sudo apt-get install python-yaml
+	sudo apt-get install python-yaml
 	
 test:
 	@#test ! -d tmp && mkdir tmp
