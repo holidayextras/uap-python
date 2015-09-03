@@ -66,10 +66,11 @@ class ParseStringWithGivenDelimiter(unittest.TestCase):
         delimiter = ","
         user_agent_wrapper.parseFromFile(inFilePath, outFilePath, delimiter)
         numLines = sum(1 for line in open(os.path.join(ROOT_DIR, 'ua_out_file')))
+        expectedNumLines = 100
 
         self.assertTrue(os.path.isfile(os.path.join(ROOT_DIR, 'ua_out_file')))
         self.assertTrue(os.stat(os.path.join(ROOT_DIR, 'ua_out_file')).st_size > 0)
-        self.assertEqual(numLines, 100)
+        self.assertEqual(numLines, expectedNumLines)
 
 if __name__ == '__main__':
     unittest.main()
