@@ -18,7 +18,6 @@ TEST_RESOURCES_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),
 
 class ParseStringWithGivenDelimiter(unittest.TestCase):
     def testUserAgentStringsFromFile(self):
-        # self.runParseUserAgentStringsFromFile()
         self.runParseUserAgentStringsFromFile(os.path.join(
             TEST_RESOURCES_DIR, 'random_user_agent_strings.txt'), os.path.join(
             os.path.abspath(os.path.dirname(__file__)), './ua_out_file'))

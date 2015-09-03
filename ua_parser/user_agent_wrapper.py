@@ -33,7 +33,7 @@ def parseFromFile(inFilePath, outFilePath, delimiter):
                       "browser_patch\n")
     for line in inFileOpen:
         parsedUaString = parseUaString(line, delimiter)
-        outFileOpen.write(str(parsedUaString+'\n'))
+        outFileOpen.write(str(parsedUaString))
     inFileOpen.close()
     outFileOpen.close()
 
@@ -43,7 +43,7 @@ def parseFromString(uaString, delimiter):
     return parseUaString(uaString, delimiter)
 
 
-def parseUaString(str, delimiter):
+def parseUaString(uaString, delimiter):
     "Use the provided lib to parse the user agent string"
     # print 'UA String to Parse =', sys.argv[1]
     # On the server, you could use a WebOB request object.
@@ -53,7 +53,7 @@ def parseUaString(str, delimiter):
 
     # For demonstration purposes, though an iPhone ...
     # user_agent_string = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B179 Safari/7534.48.3'
-    user_agent_string = str
+    user_agent_string = uaString
     # Get back a big dictionary of all the goodies.
     result_dict = user_agent_parser.Parse(user_agent_string)
 
@@ -73,7 +73,7 @@ def parseUaString(str, delimiter):
     if delimiter == "\\t" or delimiter == ",":
         user_agent = json.dumps(result_dict['string'], separators="," ":")
         device = json.dumps(result_dict['device']['family'], separators="," ":")
-        os = json.dumps(result_dict['os']['family'], separators="," ":")
+        os_family = json.dumps(result_dict['os']['family'], separators="," ":")
         os_major = json.dumps(result_dict['os']['major'], separators="," ":")
         os_minor = json.dumps(result_dict['os']['minor'], separators="," ":")
         os_patch_minor = json.dumps(result_dict['os']['patch_minor'], separators="," ":")
@@ -83,9 +83,9 @@ def parseUaString(str, delimiter):
         browser_minor = json.dumps(result_dict['user_agent']['minor'], separators="," ":")
         browser_patch = json.dumps(result_dict['user_agent']['patch'], separators="," ":")
 
-        return user_agent+delimiter+\
+        return user_agent.replace("\\n", "")+delimiter+\
                 device + delimiter+\
-                os+ delimiter+\
+                os_family+ delimiter+\
                 os_major+ delimiter+\
                 os_minor+ delimiter+\
                 os_patch_minor+ delimiter+\
@@ -93,7 +93,7 @@ def parseUaString(str, delimiter):
                 browser+ delimiter+\
                 browser_major+ delimiter+\
                 browser_minor+ delimiter+\
-                browser_patch
+                browser_patch+'\n'
 
     else:
         return "Unknown delimiter"
