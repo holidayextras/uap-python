@@ -15,6 +15,7 @@ import user_agent_wrapper
 
 TEST_RESOURCES_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                   '../uap-core/test_resources')
+ROOT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)))
 
 class ParseStringWithGivenDelimiter(unittest.TestCase):
     def testUserAgentStringsFromFile(self):
@@ -66,5 +67,7 @@ class ParseStringWithGivenDelimiter(unittest.TestCase):
 
         user_agent_wrapper.parseFromFile(inFilePath, outFilePath, delimiter)
 
+        self.assertTrue(os.path.isfile(os.path.join(ROOT_DIR, 'ua_out_file')))
+        self.assertTrue(os.stat(os.path.join(ROOT_DIR, 'ua_out_file')).st_size > 0)
 if __name__ == '__main__':
     unittest.main()
