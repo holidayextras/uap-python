@@ -5,7 +5,6 @@
     When running from file, the output file with generate a file with the following headers:
     user_agent,device,os,os_major,os_minor,os_patch_minor,os_patch,browser,browser_major,browser_minor,browser_patch
 """
-from numpy.lib.arraysetops import in1d
 
 __author__ = 'viktor.trako@holidayextras.com (Viktor Trako)'
 
