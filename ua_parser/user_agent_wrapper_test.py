@@ -63,7 +63,7 @@ class ParseStringWithGivenDelimiter(unittest.TestCase):
         self.assertEqual(string, result['string'])
 
     def runParseUserAgentStringsFromFile(self, inFilePath, outFilePath):
-        delimiter = ","
+        delimiter = "tab"
         user_agent_wrapper.parseFromFile(inFilePath, outFilePath, delimiter)
         numLines = sum(1 for line in open(os.path.join(ROOT_DIR, 'ua_out_file')))
         expectedNumLines = 100

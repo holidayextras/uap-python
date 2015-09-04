@@ -8,7 +8,7 @@
 
 __author__ = 'viktor.trako@holidayextras.com (Viktor Trako)'
 
-from ua_parser import user_agent_parser
+import user_agent_parser
 import json
 # print 'Number of arguments:', len(sys.argv), 'arguments.'
 # print 'Argument List:', str(sys.argv)
@@ -17,6 +17,8 @@ import json
 def parseFromFile(inFilePath, outFilePath, delimiter):
     "Parse user agents using a file input"
     # return parseUaString(filePath, delimiter)
+    if delimiter == "tab":
+        delimiter = '\t'
     inFileOpen = open(inFilePath, "r")
     outFileOpen = open(outFilePath, "wb")
     outFileOpen.write("user_agent"+delimiter+\
@@ -69,30 +71,33 @@ def parseUaString(uaString, delimiter):
     # print '__name__ = ', __name__
     if delimiter == "json":
         return uaJson
-    if delimiter == "\\t" or delimiter == ",":
-        user_agent = json.dumps(result_dict['string'], separators="," ":")
-        device = json.dumps(result_dict['device']['family'], separators="," ":")
-        os_family = json.dumps(result_dict['os']['family'], separators="," ":")
-        os_major = json.dumps(result_dict['os']['major'], separators="," ":")
-        os_minor = json.dumps(result_dict['os']['minor'], separators="," ":")
-        os_patch_minor = json.dumps(result_dict['os']['patch_minor'], separators="," ":")
-        os_patch = json.dumps(result_dict['os']['patch'], separators="," ":")
-        browser = json.dumps(result_dict['user_agent']['family'], separators="," ":")
-        browser_major = json.dumps(result_dict['user_agent']['major'], separators="," ":")
-        browser_minor = json.dumps(result_dict['user_agent']['minor'], separators="," ":")
-        browser_patch = json.dumps(result_dict['user_agent']['patch'], separators="," ":")
+    if delimiter == "\t" or delimiter == ",":
+        user_agent = result_dict['string'].rstrip("\r\n")
+        device = json.dumps(result_dict['device']['family'], separators="," ":").rstrip("\r\n")
+        os_family = json.dumps(result_dict['os']['family'], separators="," ":").rstrip("\r\n")
+        os_major = json.dumps(result_dict['os']['major'], separators="," ":").rstrip("\r\n")
+        os_minor = json.dumps(result_dict['os']['minor'], separators="," ":").rstrip("\r\n")
+        os_patch_minor = json.dumps(result_dict['os']['patch_minor'], separators="," ":").rstrip("\r\n")
+        os_patch = json.dumps(result_dict['os']['patch'], separators="," ":").rstrip("\r\n")
+        browser = json.dumps(result_dict['user_agent']['family'], separators="," ":").rstrip("\r\n")
+        browser_major = json.dumps(result_dict['user_agent']['major'], separators="," ":").rstrip("\r\n")
+        browser_minor = json.dumps(result_dict['user_agent']['minor'], separators="," ":").rstrip("\r\n")
+        browser_patch = json.dumps(result_dict['user_agent']['patch'], separators="," ":").rstrip("\r\n")
 
-        return user_agent.replace("\\n", "")+delimiter+\
-                device + delimiter+\
-                os_family+ delimiter+\
-                os_major+ delimiter+\
-                os_minor+ delimiter+\
-                os_patch_minor+ delimiter+\
-                os_patch+ delimiter+\
-                browser+ delimiter+\
-                browser_major+ delimiter+\
-                browser_minor+ delimiter+\
-                browser_patch+'\n'
+        if device == "" or device is None:
+            device = "Unkown"
+
+        return user_agent+delimiter+\
+                device+delimiter+\
+                os_family+delimiter+\
+                os_major+delimiter+\
+                os_minor+delimiter+\
+                os_patch_minor+delimiter+\
+                os_patch+delimiter+\
+                browser+delimiter+\
+                browser_major+delimiter+\
+                browser_minor+delimiter+\
+                browser_patch+"\n"
 
     else:
         return "Unknown delimiter"
