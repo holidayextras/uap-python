@@ -85,7 +85,7 @@ def parseUaString(uaString, delimiter):
         browser_patch = json.dumps(result_dict['user_agent']['patch'], separators="," ":").rstrip("\r\n")
 
         if device == "" or device is None or device == "null":
-            device = "Unkown"
+            device = '"Unkown"'
 
         return user_agent+delimiter+\
                 device+delimiter+\
