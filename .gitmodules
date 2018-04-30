@@ -1,4 +1,4 @@
 [submodule "uap-core"]
 	path = uap-core
-	url = https://github.com/holidayextras/uap-core.git
+	url = git@github.com:holidayextras/uap-core.git
 	branch = master
